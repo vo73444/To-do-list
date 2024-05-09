@@ -5,9 +5,18 @@
 using namespace std;
 
 void TodoList::add(string task){
+    if(task == ""){
+        cout << "\nPlease enter something valid to be added to the list.\n";
+
+        return;
+    }
     list[task] = false;
 }
 void TodoList::complete(std::string task){
+    if(list.find(task) == list.end()){
+        cout << "\nTask '" << task << "' does not exist in list\n";
+        return;
+    }
     list[task] = true;
 }
 

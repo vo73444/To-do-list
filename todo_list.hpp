@@ -6,7 +6,7 @@ class TodoList{
 
     public:
 
-    void add(std::string task);
+    void add(std::string task = "");
     void complete(std::string task);
 
     void all();

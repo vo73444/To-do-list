@@ -7,7 +7,7 @@ int main(){
     TodoList list;
 
 
-    list.add("Buy milk");
+    list.add("");
     list.add("Buy eggs");
 
     list.all();
