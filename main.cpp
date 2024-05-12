@@ -7,20 +7,20 @@ int main(){
     TodoList list;
 
 
-    list.add("");
-    list.add("Buy eggs");
-
+    list.add("Walk the dog");
+    list.add("Walk the dog");
+    
     list.all();
+    list.complete();
+    list.incomplete();
 
-    list.add("Take garbage out");
-
-    list.complete("Buy milk");
+    list.complete(Task("Walk the dog"));
+    list.add("Walk the dog");
 
     list.all();
     list.complete();
     list.incomplete();
-    list.clear();
-    list.all();
+
 
     return 0;
 }

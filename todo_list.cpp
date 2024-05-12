@@ -1,6 +1,7 @@
 #include "todo_list.hpp"
 #include <iostream>
 #include <iterator>
+#include <algorithm>
 
 using namespace std;
 
@@ -10,14 +11,37 @@ void TodoList::add(string task){
 
         return;
     }
-    list[task] = false;
+    else if(find(list.begin(), list.end(), task) != list.end()){
+        vector<Task>::iterator itr;
+        for(itr = list.begin(); (*itr).get_name() == task; itr++){
+            if((*itr).get_status() == false){
+                cout << "\nTask is already on the list.\n";
+                return;
+            }
+            else{
+                   list.push_back(Task(task));
+                   return;
+            }
+        
+        }
+
+    }
+    
+    list.push_back(Task(task));
 }
-void TodoList::complete(std::string task){
-    if(list.find(task) == list.end()){
-        cout << "\nTask '" << task << "' does not exist in list\n";
+void TodoList::complete(Task task){
+    if(find(list.begin(), list.end(), task) == list.end()){
+        cout << "\nTask '" << task.get_name() << "' does not exist in list\n";
         return;
     }
-    list[task] = true;
+    else{
+        vector<Task>::iterator itr;
+        for(itr = list.begin(); itr < list.end(); itr++){
+            if(*itr == task){
+                (*itr).change_status();
+            }
+        }
+    }
 }
 
 void TodoList::all(){
@@ -26,10 +50,10 @@ void TodoList::all(){
         return;
     }
     string output = "\nHere is a list of all your tasks:\n";
-    map<string, bool>::iterator itr;
+    vector<Task>::iterator itr;
 
-    for(itr = list.begin(); itr != list.end(); itr++){
-            output = output + itr->first + "\n";
+    for(itr = list.begin(); itr < list.end(); itr++){
+            output = output + (*itr).get_name() + "\n";
         
     }
 
@@ -38,11 +62,11 @@ void TodoList::all(){
 }
 void TodoList::complete(){
     string output = "\nHere is a list of your completed tasks:\n";
-    map<string, bool>::iterator itr;
+    vector<Task>::iterator itr;
 
-    for(itr = list.begin(); itr != list.end(); itr++){
-        if(itr->second == true){
-            output = output + itr->first + "\n";
+    for(itr = list.begin(); itr < list.end(); itr++){
+        if((*itr).get_status() == true){
+            output = output + (*itr).get_name() + "\n";
         }
     }
 
@@ -50,11 +74,11 @@ void TodoList::complete(){
 }
 void TodoList::incomplete(){
     string output = "\nHere is a list of your incompleted tasks:\n";
-    map<string, bool>::iterator itr;
+    vector<Task>::iterator itr;
 
-    for(itr = list.begin(); itr != list.end(); itr++){
-        if(itr->second == false){
-            output = output + itr->first + "\n";
+    for(itr = list.begin(); itr < list.end(); itr++){
+        if((*itr).get_status() == false){
+            output = output + (*itr).get_name() + "\n";
         }
     }
 
